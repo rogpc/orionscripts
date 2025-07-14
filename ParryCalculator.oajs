@@ -12,11 +12,11 @@ function ParryChance() {
 	var leftHand = Orion.ObjAtLayer("Lefthand");
 	var rightHand = Orion.ObjAtLayer("Righthand");
 	
-	// Uncomment value below to test different parry skill levels
+	// Uncomment and set value below to test different parry skill levels
 	//var parryValue = 0;
 	
-	// Uncomment next value below to test different bushido skill levels
-	//var bushidoValue = 0; // Uncomment and set this value to test different parrying values
+	// Uncomment and set next value below to test different bushido skill levels
+	//var bushidoValue = 0;
  
 	Orion.Print("--");
 	if (leftHand !== null) { // detected left hand 
