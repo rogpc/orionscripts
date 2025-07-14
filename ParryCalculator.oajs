@@ -1,0 +1,88 @@
+// Rog was here - 2025
+
+function ParryChance() {
+	var chance = 0.0;
+	var newChance= 0;
+	var legacyChance = 0;
+	var dexModifier = 0;
+	var dexValue = Player.Dex();
+	var parryValue = (Orion.SkillValue("Parrying") * 0.1);
+	var bushidoValue = (Orion.SkillValue("Bushido") * 0.1);
+	//var bushidoValue = 0; // Uncomment and set this value to test different bushido values
+	//var parryValue = 0; // Uncomment and set this value to test different parrying values
+	var leftHand = Orion.ObjAtLayer("Lefthand");
+	var rightHand = Orion.ObjAtLayer("Righthand");
+ 
+	Orion.Print("--");
+	if (leftHand !== null) { // detected left hand 
+		var leftProperties  = leftHand.Properties();
+  
+		if (Orion.Contains(leftProperties, "Two-handed Weapon")) { // is a two-hander
+			Orion.Print("Detected two-hander.");
+			newChance = ((parryValue * 10) * (bushidoValue * 10) / 41140);
+			Orion.Print("New: (Parrying * 10) * (Bushido * 10) / 41140 - add 5% if either skill is 100+");
+			Orion.Print("(" + parryValue + " * 10) * (" + bushidoValue + " * 10) / 41140"); 
+			if (parryValue >= 100 || bushidoValue >= 100) {
+				newChance+=5;
+			}
+			legacyChance = (parryValue * 10) / 80;
+			Orion.Print("Legacy: (Parrying * 10) / 80 - add 5% if parry is 100+");
+			if (parryValue >= 100) {
+				legacyChance+=5;
+			}
+			if (newChance > legacyChance) {
+				chance = newChance;
+			} else {
+				chance = legacyChance;
+			}
+   
+		} else { // is a shield
+			Orion.Print("--Detected shield--");
+			Orion.Print("(Parrying - Bushido) / 4 - add 5% if either skill is 100+")
+			Orion.Print("(" + parryValue + " - " + bushidoValue + ") / 4"); 
+			chance = ((parryValue - bushidoValue) / 4);
+			if (parryValue >= 100 || bushidoValue >= 100) {
+				chance+=5;
+			}
+		}
+  
+	} else if (leftHand == null && rightHand !== null) {	 // null left hand, detected right hand
+		Orion.Print("Detected one-hander.");
+		newChance = ((parryValue * 10) * (bushidoValue * 10) / 48000);
+		Orion.Print("New: (Parrying * 10) * (Bushido * 10) / 48000 - add 5% if either skill is 100+");
+		Orion.Print("(" + parryValue + " * 10) * (" + bushidoValue + " * 10) / 48000"); 
+		if (parryValue >= 100 || bushidoValue >= 100) {
+			newChance+=5;
+		}
+		legacyChance = ((parryValue * 10) / 80);
+		if (parryValue >= 100) {
+			legacyChance+=5;
+		}
+		if (newChance > legacyChance) {
+			chance = newChance;
+		} else {
+			chance = legacyChance;
+		}
+  
+	} else { // null both hands
+		Orion.Print("One does not block attacks without a weapon or shield.");
+	}
+ 
+	if (dexValue < 80) {
+		Orion.Print("Having less than 80 dexterity is decreasing your chance to parry.");
+		dexModifier = ((80 - dexValue) / 100);
+	}
+ 
+	chance = (chance * (1 - dexModifier));
+	if (chance < 0) {
+		chance = 0.0;
+	} else {
+		chance = chance.toFixed(1);
+	}
+ 
+	Orion.Print("---");
+	Orion.Print("Dexterity: " + dexValue);
+	Orion.Print("Parry: " + parryValue);
+	Orion.Print("Bushido: " + bushidoValue);
+	Orion.Print("Chance to block: " + chance + "%");
+}
