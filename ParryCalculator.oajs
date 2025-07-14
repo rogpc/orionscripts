@@ -1,5 +1,7 @@
 // Rog was here - 2025 
 // v1.0.0
+// If you download this as a file and add it to your local scripts folder, add //#include ParryCalculator.oajs
+// to the top of your main script file to include function among those scripts.
 // Run ParryChance() to determine your chance to block an incoming attack
 
 function ParryChance() {
