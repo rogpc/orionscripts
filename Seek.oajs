@@ -1,0 +1,41 @@
+// Rog was here - 2021
+// Will (mostly) block targeting on summons
+// Uses Orion's smart last larget to set a "harmtarget"
+// Will focus on mob closest to mouse cursor
+// Should block targeting on targets wtih [Kool] tags
+function Seek() { // Searches for potentially hostile players & mobs within your range of sight
+
+	// Remove former target highlighting
+	Orion.ClearHighlightCharacters(true);
+	
+	// Initiate variable 'targets' for game objects that meet the arguments passed into FindTypeEx
+	var targets = Orion.FindTypeEx(any, any, ground, 'live|ignoreself|ignorefriends|nearmouse', '24', 'gray|criminal|orange|red');
+	
+	if (targets.length != 0) {
+		
+		// If target is a summon, block targeting and add to ignore list
+		if (Orion.Contains(targets[0].Properties(), '(summoned)')) {
+			Orion.Print('--Target blocked: summon--');
+			Orion.Ignore(targets[0].Serial(), true);
+		
+		// Else if target contains guild tag of Kool, blocks targeting and adds to ignore list
+		} else if (Orion.Contains(targets[0].Properties(), '[Kool]')) {
+			Orion.Print('--Target blocked: ally--');
+			Orion.Ignore(targets[0].Serial(), true);
+		
+		// Else target is selected and set as new hostile and last target
+		} else {
+			Orion.CharPrint(targets[0].Serial(), 37, "--"+targets[0].Name()+"--"); // Print target's name above selected target
+			//Orion.CharPrint(self, '37', '--Target: ' + targets[0].Name() + '--'); // Uncomment to print target's name above your character
+			Orion.AddHighlightCharacter(targets[0].Serial(), 1931, true); // Highlights selected target
+			Orion.AddObject(harmtarget, targets[0].Serial()); // Sets target serial to last 'harmful' target
+			Orion.AddObject(lasttarget, targets[0].Serial()); // Sets target serial to lasttarget
+			//Orion.Ignore(targets[0].Serial(), true); // Uncomment this to enable adding this target to ignore list after setting (not recommended)
+		}
+		
+	// If list length equal to 0	
+	} else {
+		Orion.Print('--No more targets--');
+		//Orion.IgnoreReset();
+	}
+}
