@@ -23,7 +23,7 @@ function ParryChance() {
 		var leftProperties  = leftHand.Properties();
   
 		if (Orion.Contains(leftProperties, "Two-handed Weapon")) { // is a two-hander
-			Orion.Print("Detected two-hander.");
+			Orion.Print("--Detected two-hander--");
 			newChance = ((parryValue * 10) * (bushidoValue * 10) / 41140);
 			Orion.Print("New: (Parrying * 10) * (Bushido * 10) / 41140 - add 5% if either skill is 100+");
 			Orion.Print("(" + parryValue + " * 10) * (" + bushidoValue + " * 10) / 41140"); 
@@ -52,7 +52,7 @@ function ParryChance() {
 		}
   
 	} else if (leftHand == null && rightHand !== null) {	 // null left hand, detected right hand
-		Orion.Print("Detected one-hander.");
+		Orion.Print("--Detected one-hander--");
 		newChance = ((parryValue * 10) * (bushidoValue * 10) / 48000);
 		Orion.Print("New: (Parrying * 10) * (Bushido * 10) / 48000 - add 5% if either skill is 100+");
 		Orion.Print("(" + parryValue + " * 10) * (" + bushidoValue + " * 10) / 48000"); 
