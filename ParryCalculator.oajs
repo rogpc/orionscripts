@@ -1,4 +1,5 @@
 // Rog was here - 2025 
+// v1.0.0
 // Run ParryChance() to determine your chance to block an incoming attack
 
 function ParryChance() {
@@ -70,7 +71,7 @@ function ParryChance() {
 		}
   
 	} else { // null both hands
-		Orion.Print("One does not block attacks without a weapon or shield.");
+		Orion.Print("One does not simply block attacks without a weapon or shield.");
 	}
  
 	if (dexValue < 80) {
