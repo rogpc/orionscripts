@@ -14,8 +14,11 @@ function ParryChance() {
 	var bushidoValue = (Orion.SkillValue("Bushido") * 0.1);
 	var leftHand = Orion.ObjAtLayer("Lefthand");
 	var rightHand = Orion.ObjAtLayer("Righthand");
+
+	// Uncomment and set dex value just below to test different dexterity values
+	//var dexValue = 10;
 	
-	// Uncomment and set value below to test different parry skill levels
+	// Uncomment and set this value below to test different parry skill levels
 	//var parryValue = 0;
 	
 	// Uncomment and set next value below to test different bushido skill levels
